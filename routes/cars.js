@@ -6,6 +6,9 @@ const carsController = require("../controller/cars");
 router.get("/", carsController.readCars);
 router.get("/:id/", carsController.readCarsById);
 
+// Create Car
+router.post("/", carsController.createCars);
+
 // update
 router.patch("/:id", carsController.updateCars);
 
