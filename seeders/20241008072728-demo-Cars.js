@@ -12,6 +12,14 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+      {
+        name: "Gallardo Trondol",
+        type: "Cars",
+        price: 200000,
+        stock: 10,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
     ]);
   },
 
