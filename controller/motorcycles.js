@@ -72,25 +72,19 @@ const createMotorcycle = async (req, res) => {
   const createAt = new Date();
 
   try {
-    const data = await Motorcycles.create({
-      ...req.body,
-      updateAt,
-      createAt,
-    });
-
-    if (
-      Object.keys(req.body).length === 0 ||
-      !name ||
-      !type ||
-      !price ||
-      !stock
-    ) {
+    if (!name || !type || !price || !stock) {
       return res.status(400).json({
         status: "Bad request",
         message: "Request body is empty or missing required fields",
         error: "Empty request body or required fields not found",
       });
     }
+
+    const data = await Motorcycles.create({
+      ...req.body,
+      updateAt,
+      createAt,
+    });
 
     res.status(201).json({
       status: "Success",
@@ -150,10 +144,6 @@ const updateMotorcycles = async (req, res) => {
       error: error.message,
     });
   }
-};
-
-module.exports = {
-  updateMotorcycles,
 };
 
 // DELETE MOTORCYCLE = DELETE
