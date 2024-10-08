@@ -1,11 +1,105 @@
 const { Cars } = require("../models");
 
 // GET ALL CARS = GET
+const readCars = async (req, res) => {
+  try {
+    const data = await Cars.findAll();
+
+    if (data === null) {
+      return res.status(400).json({
+        status: "Bad Request",
+        message: "Invalid Request",
+        isSucces: false,
+        Error: "Invalid Request",
+      });
+    }
+
+    res.status(200).json({
+      status: "succes",
+      message: "Succes get cars data",
+      isSucces: true,
+      data: [data],
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: "succes",
+      message: "Succes get cars data",
+      isSucces: true,
+      data: null,
+    });
+  }
+};
 
 // GET CARS BY ID = GET
+const readCarsById = async (req, res) => {
+  try {
+    const CarsId = req.params.id;
+    const data = await Cars.findByPk(CarsId);
+
+    if (data === null) {
+      return res.status(400).json({
+        status: "Bad Request",
+        message: "Invalid Request",
+        isSucces: false,
+        Error: "Invalid Request",
+      });
+    }
+
+    res.status(200).json({
+      status: "succes",
+      message: "Succes get cars data",
+      isSucces: true,
+      data: [data],
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: "succes",
+      message: "Succes get cars data",
+      isSucces: true,
+      data: null,
+    });
+  }
+};
 
 // CREATE CARS = POST
+const createCars = async (req, res) => {
+  const {name, type, price, stock} = req.body;
+  const updateAt = new Date();
+  const createAt = new Date();
+  
+  try {
+    const data = await Cars.create({
+      name,
+      type,
+      price,
+      stock,
+      createAt,
+      updateAt,
+    })
 
+    if (!data) {
+      res.status(400).json({
+        status: "Bad request",
+        message: "Invalid request",
+        error: "Invalid request",
+      });
+    } else {
+      res.status(201).json({
+        status: "Created",
+        message: "Car created successfully",
+        data,
+      });
+    }
+
+  }catch(error){
+    res.status(500).json({
+      status: "Internal server error",
+      message: "Internal server error",
+      isSuccess: false,
+      error: error.message,
+    });
+  }
+}
 // UPDATE CARS = PATCH
 const updateCars = async (req, res) => {
   const { body, params } = req;
@@ -51,7 +145,6 @@ const updateCars = async (req, res) => {
 };
 
 // DELETE CARS = DELETE
-
 const deleteCars = async (req, res) => {
   const id = req.params.id;
   try {
@@ -90,4 +183,7 @@ const deleteCars = async (req, res) => {
 module.exports = {
   deleteCars,
   updateCars,
+  createCars,
+  readCars,
+  readCarsById,
 };
