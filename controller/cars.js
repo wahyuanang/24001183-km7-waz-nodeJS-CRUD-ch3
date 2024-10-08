@@ -5,7 +5,44 @@ const { Cars } = require("../models");
 // GET CARS BY ID = GET
 
 // CREATE CARS = POST
+const createCars = async (req, res) => {
+  const {name, type, price, stock} = req.body;
+  const updateAt = new Date();
+  const createAt = new Date();
+  
+  try {
+    const data = await Cars.create({
+      name,
+      type,
+      price,
+      stock,
+      createAt,
+      updateAt,
+    })
 
+    if (!data) {
+      res.status(400).json({
+        status: "Bad request",
+        message: "Invalid request",
+        error: "Invalid request",
+      });
+    } else {
+      res.status(201).json({
+        status: "Created",
+        message: "Car created successfully",
+        data,
+      });
+    }
+
+  }catch(error){
+    res.status(500).json({
+      status: "Internal server error",
+      message: "Internal server error",
+      isSuccess: false,
+      error: error.message,
+    });
+  }
+}
 // UPDATE CARS = PATCH
 const updateCars = async (req, res) => {
   const { body, params } = req;
@@ -90,4 +127,5 @@ const deleteCars = async (req, res) => {
 module.exports = {
   deleteCars,
   updateCars,
+  createCars,
 };
