@@ -2,8 +2,8 @@ const express = require("express");
 const router = express.Router();
 const motorcyclesController = require("../controller/motorcycles");
 
-router.post("/", motorcyclesController.createMotorcycles);
-
+// Create Motorcycle = POST
+router.post("/", motorcyclesController.createMotorcycle);
 
 // update
 router.patch("/:id", motorcyclesController.updateMotorcycles);
