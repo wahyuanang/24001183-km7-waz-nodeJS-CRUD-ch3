@@ -66,35 +66,36 @@ const getMotorcyclesById = async (req, res) => {
 };
 
 // CREATE MOTORCYLES = POST
-const createMotorcycles = async (req, res) => {
-  const { body } = req;
+const createMotorcycle = async (req, res) => {
+  const { name, type, price, stock } = req.body;
   const updateAt = new Date();
   const createAt = new Date();
+
   try {
+    if (!name || !type || !price || !stock) {
+      return res.status(400).json({
+        status: "Bad request",
+        message: "Request body is empty or missing required fields",
+        error: "Empty request body or required fields not found",
+      });
+    }
+
     const data = await Motorcycles.create({
-      ...body,
+      ...req.body,
       updateAt,
       createAt,
     });
 
-    if (!data) {
-      return res.status(400).json({
-        status: "Bad request",
-        message: "Invalid request",
-        error: "Invalid request",
-      });
-    }
-
     res.status(201).json({
       status: "Success",
-      message: "Create data successfully",
+      message: "Motorcycle created successfully",
       isSuccess: true,
       data: data,
     });
   } catch (error) {
     res.status(500).json({
       status: "Internal server error",
-      message: "Internal server error",
+      message: "An unexpected error occurred",
       error: error.message,
     });
   }
@@ -145,10 +146,6 @@ const updateMotorcycles = async (req, res) => {
   }
 };
 
-module.exports = {
-  updateMotorcycles,
-};
-
 // DELETE MOTORCYCLE = DELETE
 const deleteMotorcycles = async (req, res) => {
   const id = req.params.id;
@@ -185,7 +182,7 @@ const deleteMotorcycles = async (req, res) => {
 };
 
 module.exports = {
-  createMotorcycles,
+  createMotorcycle,
   getMotorcycles,
   getMotorcyclesById,
   deleteMotorcycles,
