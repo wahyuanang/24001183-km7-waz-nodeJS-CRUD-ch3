@@ -105,7 +105,55 @@ const createMotorcycles = async (req, res) => {
   }
 };
 
-// UPDATE MOTORCYCLE = PATCH
+// UPDATE Motorcycle
+const updateMotorcycles = async (req, res) => {
+  const { body, params } = req;
+  const { id } = params;
+  const updateAt = new Date();
+
+  try {
+    const data = await Motorcycles.update(
+      {
+        ...body,
+        updateAt,
+      },
+      {
+        where: {
+          id,
+        },
+      }
+    );
+
+    if (data[0] === 0) { // Jika tidak ada baris yang diperbarui
+      return res.status(404).json({
+        status: "Not found",
+        message: `Motorcycle with ID ${id} not found`,
+        error: "Not found",
+      });
+    }
+
+    res.status(200).json({
+      status: "OK",
+      message: "Motorcycle updated successfully",
+      data: {
+        ...body,
+        updateAt,
+      },
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: "Internal server error",
+      message: "Internal server error",
+      error: error.message,
+    });
+  }
+};
+
+module.exports = {
+  updateMotorcycles,
+};
+
+
 
 // DELETE MOTORCYCLE = DELETE
 const deleteMotorcycles = async (req, res) => {
