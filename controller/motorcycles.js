@@ -82,12 +82,6 @@ const createMotorcycles = async (req, res) => {
       createAt,
     });
 
-    const result = {
-      status: "OK",
-      message: "Motorcycle created successfully",
-      data: data,
-    };
-
     if (!data) {
       return res.status(400).json({
         status: "Bad request",
@@ -96,14 +90,18 @@ const createMotorcycles = async (req, res) => {
       });
     }
 
-    res.status(201).json(result);
+    res.status(201).json({
+      status: "Success",
+      message: "Create data successfully",
+      isSuccess: true,
+      data: data,
+    });
   } catch (error) {
-    const errorResult = {
+    res.status(500).json({
       status: "Internal server error",
       message: "Internal server error",
       error: error.message,
-    };
-    res.status(500).json(errorResult);
+    });
   }
 };
 
