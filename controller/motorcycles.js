@@ -107,9 +107,43 @@ const createMotorcycles = async (req, res) => {
 // UPDATE MOTORCYCLE = PATCH
 
 // DELETE MOTORCYCLE = DELETE
+const deleteMotorcycles = async(req, res) => {
+  const id = req.params.id;
+  try{
+    const motor = await Motorcycles.findOne({
+      where: {id: id}
+    });
+    
+    if(!motor){
+      return res.status(404).json({
+        status: "Failed",
+        message: "Get data not successfully",
+        isSuccess: false,
+      });
+    }
+
+    await Motorcycles.destroy({
+      where: {id: id}
+    });
+      
+    res.status(201).json({
+      status: "Success",
+      message: "Delete data successfully",
+      isSuccess: true,
+    })
+  }catch(error){
+    res.status(500).json({
+      status: "Internal server error",
+      message: "Internal server error",
+      isSuccess: false,
+      error: error.message,
+    });
+  }
+};
 
 module.exports = {
   createMotorcycles,
   readMotorcycles,
   readMotorcyclesById,
+  deleteMotorcycles,
 };
