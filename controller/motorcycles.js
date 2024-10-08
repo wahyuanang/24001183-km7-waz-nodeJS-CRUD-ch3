@@ -1,7 +1,7 @@
 const { Motorcycles } = require("../models");
 
 // GET ALL = GET
-const readMotorcycles = async (req, res) => {
+const getMotorcycles = async (req, res) => {
   try {
     const data = await Motorcycles.findAll();
 
@@ -30,7 +30,7 @@ const readMotorcycles = async (req, res) => {
   }
 };
 // GET BY ID = GET
-const readMotorcyclesById = async (req, res) => {
+const getMotorcyclesById = async (req, res) => {
   const reqId = req.params.id;
 
   try {
@@ -186,8 +186,8 @@ const deleteMotorcycles = async (req, res) => {
 
 module.exports = {
   createMotorcycles,
-  readMotorcycles,
-  readMotorcyclesById,
+  getMotorcycles,
+  getMotorcyclesById,
   deleteMotorcycles,
   updateMotorcycles,
 };

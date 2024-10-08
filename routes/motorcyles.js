@@ -8,9 +8,9 @@ router.post("/", motorcyclesController.createMotorcycles);
 // update
 router.patch("/:id", motorcyclesController.updateMotorcycles);
 
-router.get("/", motorcyclesController.readMotorcycles);
+router.get("/", motorcyclesController.getMotorcycles);
 
-router.get("/:id", motorcyclesController.readMotorcyclesById);
+router.get("/:id", motorcyclesController.getMotorcyclesById);
 
 // Delete
 router.delete("/:id", motorcyclesController.deleteMotorcycles);
