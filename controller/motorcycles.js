@@ -82,6 +82,12 @@ const createMotorcycles = async (req, res) => {
       createAt,
     });
 
+    const result = {
+      status: "OK",
+      message: "Motorcycle created successfully",
+      data: data,
+    };
+
     if (!data) {
       return res.status(400).json({
         status: "Bad request",
@@ -90,31 +96,28 @@ const createMotorcycles = async (req, res) => {
       });
     }
 
-    res.status(201).json({
-      status: "OK",
-      message: "Motorcycle created successfully",
-      data: data,
-    });
+    res.status(201).json(result);
   } catch (error) {
-    res.status(500).json({
+    const errorResult = {
       status: "Internal server error",
       message: "Internal server error",
       error: error.message,
-    });
+    };
+    res.status(500).json(errorResult);
   }
 };
 
 // UPDATE MOTORCYCLE = PATCH
 
 // DELETE MOTORCYCLE = DELETE
-const deleteMotorcycles = async(req, res) => {
+const deleteMotorcycles = async (req, res) => {
   const id = req.params.id;
-  try{
-    const motor = await Motorcycles.findOne({
-      where: {id: id}
+  try {
+    const data = await Motorcycles.findOne({
+      where: { id: id },
     });
-    
-    if(!motor){
+
+    if (!data) {
       return res.status(404).json({
         status: "Failed",
         message: "Get data not successfully",
@@ -123,15 +126,15 @@ const deleteMotorcycles = async(req, res) => {
     }
 
     await Motorcycles.destroy({
-      where: {id: id}
+      where: { id: id },
     });
-      
+
     res.status(201).json({
       status: "Success",
       message: "Delete data successfully",
       isSuccess: true,
-    })
-  }catch(error){
+    });
+  } catch (error) {
     res.status(500).json({
       status: "Internal server error",
       message: "Internal server error",
