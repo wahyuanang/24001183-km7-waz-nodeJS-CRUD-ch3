@@ -1,74 +1,69 @@
 const { Motorcycles } = require("../models");
 
 // GET ALL = GET
-const readMotorcycles = async (req, res) =>{
-  try{
-    const data = await Motorcycles.findAll() 
+const readMotorcycles = async (req, res) => {
+  try {
+    const data = await Motorcycles.findAll();
 
-    if(data.length === 0){
+    if (data.length === 0) {
       return res.status(404).json({
         status: "Failed",
         message: "Failed get motorcycles data",
         isSuccess: false,
-      })
-    }else{
+      });
+    } else {
       res.status(200).json({
         status: "Success",
         message: "Success get motorcycles data",
         isSuccess: true,
         data: {
           data,
-        }
-      })
+        },
+      });
     }
-
-  }
-  catch(error){
+  } catch (error) {
     res.status(500).json({
       status: "Internal server error",
       message: "Internal server error",
       error: error.message,
-    })
+    });
   }
-}
+};
 // GET BY ID = GET
-const readMotorcyclesById = async (req, res) =>{
-  const reqId = req.params.id
+const readMotorcyclesById = async (req, res) => {
+  const reqId = req.params.id;
 
-  try{
+  try {
     const data = await Motorcycles.findAll({
-      where:{
-        id: reqId
-      }
-    })
+      where: {
+        id: reqId,
+      },
+    });
 
-    if(data.length === 0){
+    if (data.length === 0) {
       res.status(404).json({
         status: "Failed",
         message: "Failed get motorcycles data by id",
         isSuccess: false,
-      })
-    }else{
+      });
+    } else {
       res.status(200).json({
         status: "Success",
         message: "Success get motorcycles data by id",
         isSuccess: true,
         data: {
           data,
-        }
-      })
+        },
+      });
     }
-
-  }
-  catch(error){
+  } catch (error) {
     res.status(500).json({
       status: "Internal server error",
       message: "Internal server error",
       error: error.message,
-    })
+    });
   }
-  
-}
+};
 
 // CREATE MOTORCYLES = POST
 const createMotorcycles = async (req, res) => {
@@ -124,7 +119,8 @@ const updateMotorcycles = async (req, res) => {
       }
     );
 
-    if (data[0] === 0) { // Jika tidak ada baris yang diperbarui
+    if (data[0] === 0) {
+      // Jika tidak ada baris yang diperbarui
       return res.status(404).json({
         status: "Not found",
         message: `Motorcycle with ID ${id} not found`,
@@ -152,8 +148,6 @@ const updateMotorcycles = async (req, res) => {
 module.exports = {
   updateMotorcycles,
 };
-
-
 
 // DELETE MOTORCYCLE = DELETE
 const deleteMotorcycles = async (req, res) => {
@@ -195,4 +189,5 @@ module.exports = {
   readMotorcycles,
   readMotorcyclesById,
   deleteMotorcycles,
+  updateMotorcycles,
 };
