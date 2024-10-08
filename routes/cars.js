@@ -6,4 +6,9 @@ const carsController = require("../controller/cars");
 router.get("/", carsController.readCars);
 router.get("/:id/", carsController.readCarsById);
 
+// update
+router.patch("/:id", carsController.updateCars);
+
+router.delete("/:id", carsController.deleteCars);
+
 module.exports = router;
