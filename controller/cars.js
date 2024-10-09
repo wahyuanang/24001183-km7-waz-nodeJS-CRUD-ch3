@@ -65,7 +65,7 @@ const getCarById = async (req, res) => {
 };
 
 // CREATE CARS = POST
-const createCars = async (req, res) => {
+const createCar = async (req, res) => {
   const { name, type, price, stock } = req.body;
   const updateAt = new Date();
   const createAt = new Date();
@@ -155,7 +155,7 @@ const updateCar = async (req, res) => {
 };
 
 // DELETE CARS = DELETE
-const deleteCars = async (req, res) => {
+const deleteCar = async (req, res) => {
   const id = req.params.id;
   try {
     const car = await Cars.findOne({
@@ -169,6 +169,9 @@ const deleteCars = async (req, res) => {
         data: null,
       });
     }
+
+    const deletedCar = car;
+
     await Cars.destroy({
       where: {
         id: id,
@@ -178,7 +181,7 @@ const deleteCars = async (req, res) => {
       status: "success",
       message: "Delete data successfully",
       isSuccess: true,
-      data: null,
+      data: deletedCar,
     });
   } catch (error) {
     res.status(500).json({
@@ -191,9 +194,9 @@ const deleteCars = async (req, res) => {
 };
 
 module.exports = {
-  deleteCars,
+  deleteCar,
   updateCar,
-  createCars,
+  createCar,
   getCars,
   getCarById,
 };
