@@ -19,7 +19,7 @@ const getCars = async (req, res) => {
       message: "Succes get cars data",
       isSucces: true,
       data: {
-        data
+        data,
       },
     });
   } catch (error) {
@@ -27,7 +27,7 @@ const getCars = async (req, res) => {
       status: "Internal server error",
       message: "Internal server error",
       isSucces: false,
-      error: error.message
+      error: error.message,
     });
   }
 };
@@ -42,7 +42,7 @@ const getCarById = async (req, res) => {
       return res.status(404).json({
         status: "Failed",
         message: "Failed get car data by Id",
-        isSucces: false
+        isSucces: false,
       });
     }
 
@@ -51,7 +51,7 @@ const getCarById = async (req, res) => {
       message: "Success get car data by Id",
       isSucces: true,
       data: {
-        data
+        data,
       },
     });
   } catch (error) {
@@ -59,17 +59,17 @@ const getCarById = async (req, res) => {
       status: "Internal Server Error",
       message: "Internal Server Error",
       isSucces: false,
-      error: error.message
+      error: error.message,
     });
   }
 };
 
 // CREATE CARS = POST
-const createCars = async (req, res) => {
-  const {name, type, price, stock} = req.body;
+const createCar = async (req, res) => {
+  const { name, type, price, stock } = req.body;
   const updateAt = new Date();
   const createAt = new Date();
-  
+
   try {
     if (!name || !type || !price || !stock) {
       return res.status(400).json({
@@ -85,7 +85,7 @@ const createCars = async (req, res) => {
       stock,
       createAt,
       updateAt,
-    })
+    });
 
     if (!data) {
       res.status(400).json({
@@ -100,8 +100,7 @@ const createCars = async (req, res) => {
         data,
       });
     }
-
-  }catch(error){
+  } catch (error) {
     res.status(500).json({
       status: "Internal server error",
       message: "An unexpected error occurred",
@@ -109,10 +108,10 @@ const createCars = async (req, res) => {
       error: error.message,
     });
   }
-}
+};
 
 // UPDATE CARS = PATCH
-const updateCars = async (req, res) => {
+const updateCar = async (req, res) => {
   const { body, params } = req;
   const { id } = params;
   const updateAt = new Date();
@@ -156,7 +155,7 @@ const updateCars = async (req, res) => {
 };
 
 // DELETE CARS = DELETE
-const deleteCars = async (req, res) => {
+const deleteCar = async (req, res) => {
   const id = req.params.id;
   try {
     const car = await Cars.findOne({
@@ -170,6 +169,9 @@ const deleteCars = async (req, res) => {
         data: null,
       });
     }
+
+    const deletedCar = car;
+
     await Cars.destroy({
       where: {
         id: id,
@@ -179,7 +181,7 @@ const deleteCars = async (req, res) => {
       status: "success",
       message: "Delete data successfully",
       isSuccess: true,
-      data: null,
+      data: deletedCar,
     });
   } catch (error) {
     res.status(500).json({
@@ -192,9 +194,9 @@ const deleteCars = async (req, res) => {
 };
 
 module.exports = {
-  deleteCars,
-  updateCars,
-  createCars,
+  deleteCar,
+  updateCar,
+  createCar,
   getCars,
   getCarById,
 };

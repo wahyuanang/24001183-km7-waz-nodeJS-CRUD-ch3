@@ -102,7 +102,7 @@ const createMotorcycle = async (req, res) => {
 };
 
 // UPDATE Motorcycle
-const updateMotorcycles = async (req, res) => {
+const updateMotorcycle = async (req, res) => {
   const { body, params } = req;
   const { id } = params;
   const updateAt = new Date();
@@ -147,7 +147,7 @@ const updateMotorcycles = async (req, res) => {
 };
 
 // DELETE MOTORCYCLE = DELETE
-const deleteMotorcycles = async (req, res) => {
+const deleteMotorcycle = async (req, res) => {
   const id = req.params.id;
   try {
     const data = await Motorcycles.findOne({
@@ -159,8 +159,11 @@ const deleteMotorcycles = async (req, res) => {
         status: "Failed",
         message: "Get data not successfully",
         isSuccess: false,
+        data: null,
       });
     }
+
+    const deletedMotorcycle = data;
 
     await Motorcycles.destroy({
       where: { id: id },
@@ -170,6 +173,7 @@ const deleteMotorcycles = async (req, res) => {
       status: "Success",
       message: "Delete data successfully",
       isSuccess: true,
+      data: deletedMotorcycle,
     });
   } catch (error) {
     res.status(500).json({
@@ -185,6 +189,6 @@ module.exports = {
   createMotorcycle,
   getMotorcycles,
   getMotorcycleById,
-  deleteMotorcycles,
-  updateMotorcycles,
+  deleteMotorcycle,
+  updateMotorcycle,
 };

@@ -11,12 +11,12 @@ router.get("/", carsController.getCars);
 router.get("/:id/", carsController.getCarById);
 
 // Create Car
-router.post("/", carsController.createCars);
+router.post("/", carsController.createCar);
 
 // Update Car
-router.patch("/:id", carsController.updateCars);
+router.patch("/:id", carsController.updateCar);
 
 // Delete Car
-router.delete("/:id", carsController.deleteCars);
+router.delete("/:id", carsController.deleteCar);
 
 module.exports = router;
