@@ -1,14 +1,14 @@
 const { Cars } = require("../models");
 
 // GET ALL CARS = GET
-const readCars = async (req, res) => {
+const getCars = async (req, res) => {
   try {
     const data = await Cars.findAll();
 
     if (data === null) {
-      return res.status(400).json({
-        status: "Bad Request",
-        message: "Invalid Request",
+      return res.status(404).json({
+        status: "Failed",
+        message: "Failed get cars data",
         isSucces: false,
         Error: "Invalid Request",
       });
@@ -18,45 +18,48 @@ const readCars = async (req, res) => {
       status: "succes",
       message: "Succes get cars data",
       isSucces: true,
-      data: [data],
+      data: {
+        data
+      },
     });
   } catch (error) {
     res.status(500).json({
-      status: "succes",
-      message: "Succes get cars data",
-      isSucces: true,
-      data: null,
+      status: "Internal server error",
+      message: "Internal server error",
+      isSucces: false,
+      error: error.message
     });
   }
 };
 
 // GET CARS BY ID = GET
-const readCarsById = async (req, res) => {
+const getCarById = async (req, res) => {
   try {
-    const CarsId = req.params.id;
-    const data = await Cars.findByPk(CarsId);
+    const carId = req.params.id;
+    const data = await Cars.findByPk(carId);
 
     if (data === null) {
-      return res.status(400).json({
-        status: "Bad Request",
-        message: "Invalid Request",
-        isSucces: false,
-        Error: "Invalid Request",
+      return res.status(404).json({
+        status: "Failed",
+        message: "Failed get car data by Id",
+        isSucces: false
       });
     }
 
     res.status(200).json({
-      status: "succes",
-      message: "Succes get cars data",
+      status: "Success",
+      message: "Success get car data by Id",
       isSucces: true,
-      data: [data],
+      data: {
+        data
+      },
     });
   } catch (error) {
     res.status(500).json({
-      status: "succes",
-      message: "Succes get cars data",
-      isSucces: true,
-      data: null,
+      status: "Internal Server Error",
+      message: "Internal Server Error",
+      isSucces: false,
+      error: error.message
     });
   }
 };
@@ -192,6 +195,6 @@ module.exports = {
   deleteCars,
   updateCars,
   createCars,
-  readCars,
-  readCarsById,
+  getCars,
+  getCarById,
 };

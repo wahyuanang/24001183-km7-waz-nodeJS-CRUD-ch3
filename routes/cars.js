@@ -5,10 +5,10 @@ const carsController = require("../controller/cars");
 // Buat Router disini lalu gunakan callbacknya dari controller
 
 // Get All Cars
-router.get("/", carsController.readCars);
+router.get("/", carsController.getCars);
 
 // Get Car by ID
-router.get("/:id/", carsController.readCarsById);
+router.get("/:id/", carsController.getCarById);
 
 // Create Car
 router.post("/", carsController.createCars);
