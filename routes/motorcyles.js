@@ -14,6 +14,8 @@ router.get("/", motorcyclesController.getMotorcycles);
 // Get Motorcycle by ID
 router.get("/:id", motorcyclesController.getMotorcyclesById);
 
+router.get("/:id", motorcyclesController.getMotorcycleById);
+
 // Delete Motorcycle
 router.delete("/:id", motorcyclesController.deleteMotorcycles);
 
