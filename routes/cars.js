@@ -14,7 +14,7 @@ router.get("/:id/", carsController.getCarById);
 router.post("/", carsController.createCars);
 
 // Update Car
-router.patch("/:id", carsController.updateCars);
+router.patch("/:id", carsController.updateCar);
 
 // Delete Car
 router.delete("/:id", carsController.deleteCars);
