@@ -30,7 +30,7 @@ const getMotorcycles = async (req, res) => {
   }
 };
 // GET BY ID = GET
-const getMotorcyclesById = async (req, res) => {
+const getMotorcycleById = async (req, res) => {
   const reqId = req.params.id;
 
   try {
@@ -184,7 +184,7 @@ const deleteMotorcycles = async (req, res) => {
 module.exports = {
   createMotorcycle,
   getMotorcycles,
-  getMotorcyclesById,
+  getMotorcycleById,
   deleteMotorcycles,
   updateMotorcycles,
 };
