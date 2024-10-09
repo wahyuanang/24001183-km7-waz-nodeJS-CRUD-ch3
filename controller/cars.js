@@ -68,6 +68,13 @@ const createCars = async (req, res) => {
   const createAt = new Date();
   
   try {
+    if (!name || !type || !price || !stock) {
+      return res.status(400).json({
+        status: "Bad request",
+        message: "Request body is empty or missing required fields",
+        error: "Empty request body or required fields not found",
+      });
+    }
     const data = await Cars.create({
       name,
       type,
@@ -85,7 +92,7 @@ const createCars = async (req, res) => {
       });
     } else {
       res.status(201).json({
-        status: "Created",
+        status: "Success",
         message: "Car created successfully",
         data,
       });
@@ -94,12 +101,13 @@ const createCars = async (req, res) => {
   }catch(error){
     res.status(500).json({
       status: "Internal server error",
-      message: "Internal server error",
+      message: "An unexpected error occurred",
       isSuccess: false,
       error: error.message,
     });
   }
 }
+
 // UPDATE CARS = PATCH
 const updateCars = async (req, res) => {
   const { body, params } = req;
