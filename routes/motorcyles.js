@@ -10,7 +10,7 @@ router.patch("/:id", motorcyclesController.updateMotorcycles);
 
 router.get("/", motorcyclesController.getMotorcycles);
 
-router.get("/:id", motorcyclesController.getMotorcyclesById);
+router.get("/:id", motorcyclesController.getMotorcycleById);
 
 // Delete
 router.delete("/:id", motorcyclesController.deleteMotorcycles);
