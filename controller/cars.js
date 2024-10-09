@@ -2,6 +2,7 @@ const { Cars } = require("../models");
 
 // GET ALL CARS = GET
 const readCars = async (req, res) => {
+const getCars = async (req, res) => {
   try {
     const data = await Cars.findAll();
 
@@ -9,6 +10,9 @@ const readCars = async (req, res) => {
       return res.status(400).json({
         status: "Bad Request",
         message: "Invalid Request",
+      return res.status(404).json({
+        status: "Failed",
+        message: "Failed get cars data",
         isSucces: false,
         Error: "Invalid Request",
       });
@@ -26,6 +30,16 @@ const readCars = async (req, res) => {
       message: "Succes get cars data",
       isSucces: true,
       data: null,
+      data: {
+        data
+      },
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: "Internal server error",
+      message: "Internal server error",
+      isSucces: false,
+      error: error.message
     });
   }
 };
@@ -42,6 +56,16 @@ const readCarsById = async (req, res) => {
         message: "Invalid Request",
         isSucces: false,
         Error: "Invalid Request",
+const getCarById = async (req, res) => {
+  try {
+    const carId = req.params.id;
+    const data = await Cars.findByPk(carId);
+
+    if (data === null) {
+      return res.status(404).json({
+        status: "Failed",
+        message: "Failed get car data by Id",
+        isSucces: false
       });
     }
 
@@ -57,11 +81,69 @@ const readCarsById = async (req, res) => {
       message: "Succes get cars data",
       isSucces: true,
       data: null,
+      status: "Success",
+      message: "Success get car data by Id",
+      isSucces: true,
+      data: {
+        data
+      },
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: "Internal Server Error",
+      message: "Internal Server Error",
+      isSucces: false,
+      error: error.message
     });
   }
 };
 
 // CREATE CARS = POST
+const createCars = async (req, res) => {
+  const {name, type, price, stock} = req.body;
+  const updateAt = new Date();
+  const createAt = new Date();
+  
+  try {
+    if (!name || !type || !price || !stock) {
+      return res.status(400).json({
+        status: "Bad request",
+        message: "Request body is empty or missing required fields",
+        error: "Empty request body or required fields not found",
+      });
+    }
+    const data = await Cars.create({
+      name,
+      type,
+      price,
+      stock,
+      createAt,
+      updateAt,
+    })
+
+    if (!data) {
+      res.status(400).json({
+        status: "Bad request",
+        message: "Invalid request",
+        error: "Invalid request",
+      });
+    } else {
+      res.status(201).json({
+        status: "Success",
+        message: "Car created successfully",
+        data,
+      });
+    }
+
+  }catch(error){
+    res.status(500).json({
+      status: "Internal server error",
+      message: "An unexpected error occurred",
+      isSuccess: false,
+      error: error.message,
+    });
+  }
+}
 
 // UPDATE CARS = PATCH
 const updateCars = async (req, res) => {
@@ -148,4 +230,7 @@ module.exports = {
   updateCars,
   readCars,
   readCarsById,
+  createCars,
+  getCars,
+  getCarById,
 };

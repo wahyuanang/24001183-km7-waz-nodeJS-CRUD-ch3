@@ -2,14 +2,19 @@ const express = require("express");
 const router = express.Router();
 const motorcyclesController = require("../controller/motorcycles");
 
-router.post("/", motorcyclesController.createMotorcycles);
+// Create Motorcycle = POST
+router.post("/", motorcyclesController.createMotorcycle);
 
+// Update Motorcycle
+router.patch("/:id", motorcyclesController.updateMotorcycles);
 
-router.get("/", motorcyclesController.readMotorcycles);
+// Get All Motorcycles
+router.get("/", motorcyclesController.getMotorcycles);
 
-router.get("/:id", motorcyclesController.readMotorcyclesById);
+// Get Motorcycle by ID
+router.get("/:id", motorcyclesController.getMotorcycleById);
 
-// Delete
+// Delete Motorcycle
 router.delete("/:id", motorcyclesController.deleteMotorcycles);
 
 module.exports = router;
