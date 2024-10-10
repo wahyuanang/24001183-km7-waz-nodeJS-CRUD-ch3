@@ -12,7 +12,7 @@ Penggunaan Sequelize sebagai ORM juga menyederhanakan pemodelan data, serta memu
 
 - [Tentang Proyek](#tentang-proyek)
 - [Fitur](#fitur)
-- [Jobdesk Anggota Team](#jobdesk)
+- [Jobdesk Anggota Team](#jobdesk-anggota-team)
 - [Instalasi](#instalasi)
 - [Kontribusi](#kontribusi)
 
