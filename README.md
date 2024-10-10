@@ -12,6 +12,7 @@ Penggunaan Sequelize sebagai ORM juga menyederhanakan pemodelan data, serta memu
 
 - [Tentang Proyek](#tentang-proyek)
 - [Fitur](#fitur)
+- [Jobdesk Anggota Team](#jobdesk)
 - [Instalasi](#instalasi)
 - [Kontribusi](#kontribusi)
 
@@ -48,6 +49,18 @@ Dengan RESTful API ini, pengguna dapat:
   - POST /API/v1/motorcyles akan mengembalikan response data motorcyles yang sudah terbuat.
   - PATCH /API/v1/motorcyles/:id akan mengembalikan response data motorcyles yang sudah terupdate.
   - DELETE /API/v1/motorcyles/:id akan mengembalikan response data motorcyles yang sudah terhapus.
+
+## Jobdesk Anggota Team
+
+Berikut ini adalah pembagian jondesk masing-masing anggota team kami:
+  - GET All + GET By ID mobil: Dikerjakan oleh Jetro Sulthan Fatih Nurrafi
+  - GET All + GET By ID motor: Dikerjakan oleh Tegar Alfa Rizzi
+  - Create mobil: Dikerjakan oleh Gede Brandon Abelio Ogaden
+  - Create motor: Dikerjakan oleh Rafly Aziz Abdillah
+  - Update mobil: Dikerjakan oleh Wahyu Anang Zulfikri
+  - Update motor: Dikerjakan oleh Nita Fitrotul Mar'ah
+  - Delete mobil: Dikerjakan oleh Ahmad Alif Ramadhan
+  - Delete motor: Dikerjakan oleh Muhammad Rifqi Tri Afandi
 
 ## Instalasi
 
